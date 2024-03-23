@@ -1,4 +1,4 @@
-An exploration of SpringBoot
+# An Exploration of SpringBoot
 
 Current progress:
 - BeanFactory
