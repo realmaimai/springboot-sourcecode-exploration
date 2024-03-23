@@ -1,11 +1,11 @@
 package com.springsourcecode.test;
 
-import com.springsourcecode.demo.minispring.Autowired;
 import com.springsourcecode.demo.minispring.Component;
+import com.springsourcecode.demo.minispring.Resource;
 
 @Component
 public class A {
-    @Autowired
+    @Resource
     private B b;
 
     public B getB() {

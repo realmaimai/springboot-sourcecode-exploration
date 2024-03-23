@@ -1,18 +1,27 @@
 package com.springsourcecode.demo.minispring;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BeanFactoryImpl implements BeanFactory{
 
     // as we learned before, there are 3 levels cache inside Spring, this hashmap is the first cache
     private final Map<Class<?>, Object> hashMap = new HashMap<>();
 
-    public BeanFactoryImpl(Class<?> config) throws Exception {
+    private final List<BeanPostProcessor> list = new ArrayList<>();
+
+    public BeanFactoryImpl(Class<?> config, BeanPostProcessor... postProcessors) throws Exception {
+        list.addAll(Arrays.asList(postProcessors));
+
         if (config.isAnnotationPresent(ComponentScan.class)) {
             ComponentScan cs = config.getAnnotation(ComponentScan.class);
             ComponentScanner.scan(this);
+
+            hashMap.forEach((clz, obj) -> {
+                for (BeanPostProcessor beanPostProcessor : list) {
+                    beanPostProcessor.enhance(this, obj);
+                }
+            });
         }
     }
 
