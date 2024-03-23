@@ -4,10 +4,8 @@ import com.springsourcecode.demo.minispring.BeanFactory;
 import com.springsourcecode.demo.minispring.BeanFactoryImpl;
 
 public class Test1 {
-    public static void main(String[] args) {
-        BeanFactory beanFactory = new BeanFactoryImpl();
-        beanFactory.register(A.class);
-        beanFactory.register(B.class);
+    public static void main(String[] args) throws Exception {
+        BeanFactory beanFactory = new BeanFactoryImpl(MyConfig.class);
 
         System.out.println(beanFactory.getBean(A.class));
         System.out.println(beanFactory.getBean(B.class));
